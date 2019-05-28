@@ -1,4 +1,4 @@
-function [i12, error_it2] = integral_one2(N,H, q, fn, kmpup, kmdot, s)
+function i12 = integral_one2(N,H, q, fn, kmpup, kmdot)
 %
 % [I1, ERROR_I1] = INTEGRAL_ONE(N, Q, FN, KMPUP, KMDOT, S)
 %
@@ -19,15 +19,14 @@ function [i12, error_it2] = integral_one2(N,H, q, fn, kmpup, kmdot, s)
 %   S is the layer position where IT is evaluated.
 %
 %
+    fun1 = @(y)(ione(N,H, q, fn, kmpup, kmdot, y));
+    i12= integral(fun1,0,1,'RelTol',0,'AbsTol',1e-10);%1e-13
 
-n = length(s);
-i12 = zeros(n,1);error_it2 = zeros(n,1);
+function I = ione(N,H, q, fn, kmpup, kmdot, y)
+ 
+         [I, ~] = integral_one(N,H, q, fn, kmpup, kmdot, y);   
+         
+         I = I';
+end
 
-for k=1:n
-    eone2 = @(x)(x.^3.*exp(-1*x.^2)./(x.^2+q^2).^(H+3/2)...
-        .*(3./(5.*((1-s(k)).*kmpup.*x))).^2 ...
-        .*(1./2));
-    
-    [i12(k),error_it2(k)]= quadgk(eone2,N,100000,'RelTol',0,'AbsTol',1e-10,... 
-        'MaxIntervalCount',10468);%1e-13
 end

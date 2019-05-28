@@ -24,10 +24,14 @@ n = length(s);
 it = zeros(n,1);error_it = zeros(n,1);
 
 for k=1:n
-    et = @(x)(x.^3.*exp(-1*x.^2)./(x.^2+q^2).^(H+3/2).*cos(-1*fn.*(1-s(k))^2.*x.^2).^2 ...
-        .*(besselj(1,(1-s(k)).*kmpup.*x/2)./((1-s(k)).*kmpup.*x)).^2 ...
-        .*(1-besselj(0,(1-s(k)).*kmdot.*x)));
+    if s(k) == 1
+        it(k)=0; error_it(k)= 0;
+    else
+        et = @(x)(x.^3.*exp(-1*x.^2)./(x.^2+q^2).^(H+3/2).*cos(-1*fn.*(1-s(k))^2.*x.^2).^2 ...
+            .*(besselj(1,(1-s(k)).*kmpup.*x/2)./((1-s(k)).*kmpup.*x)).^2 ...
+            .*(1-besselj(0,(1-s(k)).*kmdot.*x)));
     
-    [it(k),error_it(k)]= quadgk(et,0,N,'RelTol',0,'AbsTol',1e-10,... 
-        'MaxIntervalCount',10468);%1e-13
+        [it(k),error_it(k)]= quadgk(et,0,N,'RelTol',0,'AbsTol',1e-10,... 
+            'MaxIntervalCount',10468);%1e-13
+    end
 end
