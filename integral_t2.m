@@ -2,7 +2,7 @@ function [it2, error_it2] = integral_t2(N, H, q, fn, kmpup, kmdot, s)
 %
 % [IT2, ERROR_IT2] = INTEGRAL_T2(N, Q, FN, KMPUP, KMDOT, S)
 %
-%   IT2 is the integral t value, for the cut-off N. See manuscript.
+%   IT2 integration in s, for the cut-off N. See manuscript.
 %  
 %   ERROR_IT2 is the error from the numerical approxiamtion to IT.
 %

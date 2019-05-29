@@ -2,7 +2,7 @@ function i12 = integral_one2(N,H, q, fn, kmpup, kmdot)
 %
 % [I1, ERROR_I1] = INTEGRAL_ONE(N, Q, FN, KMPUP, KMDOT, S)
 %
-%   I1 is the integral one value, for the cut-off N. See manuscript.
+%   I1 integrate in s, for the cut-off N. See manuscript.
 %  
 %   ERROR_I1 is the error from the numerical approxiamtion to IT.
 %
