@@ -1,4 +1,4 @@
-function [i1G, error_i1G] = integral_oneG(N, D, d, L, s)
+function [i1G, error_i1G] = integral_oneG(N, kmpup, kmdot, s)
 %
 % [IT, ERROR_IT] = INTEGRAL_T(N, Q, FN, KMPUP, KMDOT, S)
 %
@@ -27,10 +27,10 @@ for k=1:n
     if s(k) == 1
         i1G(k)=0; error_i1G(k)= 0;
     else
-        e1G = @(x)(x.^(-8/3).*(besselj(1,((s(k).*x.*D)./2.*L))).^2....
-            .*(1/2-(besselj(1,(x.*d.*((L-s(k))./L)))./(x.*d.*((L-s(k))./L)))));
+        e1G = @(x)(x.^(-8/3).*(besselj(1,(1-s(k)).*kmpup.*x/2)./((1-s(k)).*kmpup)).^2....
+            .*(1/2-besselj(1,(1-s(k)).*kmdot.*x)./((1-s(k)).*kmdot.*x)));
     
         [i1G(k),error_i1G(k)]= quadgk(e1G,0,N,'RelTol',0,'AbsTol',1e-10,... 
-            'MaxIntervalCount',12536);%1e-13
+            'MaxIntervalCount',10461);%1e-13
     end
 end

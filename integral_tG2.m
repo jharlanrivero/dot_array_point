@@ -1,4 +1,4 @@
-function [itG2, error_itG2] = integral_tG2(N, L, D, d, s)
+function [itG2, error_itG2] = integral_tG2(N, kmpup, kmdot, s)
 %
 % [IT2, ERROR_IT2] = INTEGRAL_T2(N, Q, FN, KMPUP, KMDOT, S)
 %
@@ -24,8 +24,8 @@ itG2 = zeros(n,1);error_itG2 = zeros(n,1);
 
 
 for k=1:n 
-    fun2 = @(y)(y.*(integral_tG(N, L, D, d, s)));
+    fun2 = @(y)(y.*(integral_tG(N, kmpup, kmdot, s)));
     [itG2(k),error_itG2(k)]= quadgk(fun2,0,1,'RelTol',0,'AbsTol',1e-10,... 
-    'MaxIntervalCount',12536);%1e-13
+    'MaxIntervalCount',10461);%1e-13
       
 end

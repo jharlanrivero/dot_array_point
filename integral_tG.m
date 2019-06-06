@@ -1,4 +1,4 @@
-function [itG, error_itG] = integral_tG(N, D, d, L, s)
+function [itG, error_itG] = integral_tG(N, kmpup, kmdot, s)
 %
 % [ITG, ERROR_ITG] = INTEGRAL_TG(N, D, d, L, s)
 %
@@ -27,10 +27,10 @@ for k=1:n
     if s(k) == 1
         itG(k)=0; error_itG(k)= 0;
     else
-        etG = @(x)(x.^(-8/3).*(besselj(1,((s(k).*x.*D)./2.*L))).^2....
-            .*(1-besselj(0,(x.*d.*((L-s(k))./L)))));
+        etG = @(x)(x.^(-8/3).*(besselj(1,(1-s(k)).*kmpup.*x/2)./((1-s(k)).*kmpup)).^2....
+            .*(1-besselj(0,kmdot.*x.*(1-s(k)))));
     
         [itG(k),error_itG(k)]= quadgk(etG,0,N,'RelTol',0,'AbsTol',1e-10,... 
-            'MaxIntervalCount',12536);%1e-13
+            'MaxIntervalCount',10461);%1e-13
     end
 end
