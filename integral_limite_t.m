@@ -1,4 +1,4 @@
-function [i1G, error_i1G] = integral_oneG(N, q, kmpup, kmdot, s)
+function [itl, error_itl] = integral_limite_t(N, H, q, kmpup, kmdot, s)
 %
 % [IT, ERROR_IT] = INTEGRAL_T(N, Q, FN, KMPUP, KMDOT, S)
 %
@@ -18,20 +18,23 @@ function [i1G, error_i1G] = integral_oneG(N, q, kmpup, kmdot, s)
 %
 %   's' is the dimensionless layer position ($\xi/L$) where IT is evaluated.
 %
-%
+%----------------------------------------------------------------------------
+% con km -> infy / exp[-(k/km)^2] = 1, con  Cos = 1 una aproximacion dada
+% por gladys.
+% luego de esto hacemos el cambio de variable de k = km.*u
 
 n = length(s);
-i1G = zeros(n,1);error_i1G = zeros(n,1);
+itl = zeros(n,1);error_itl = zeros(n,1);
 
 for k=1:n
     if s(k) == 1
-        i1G(k)=0; error_i1G(k)= 0;
+        itl(k)=0; error_itl(k)= 0;
     else
-        e1G = @(x)((x.^2+q^2).^(-11/6) ...
-            .*(besselj(1,(1-s(k)).*kmpup.*x/2)./((1-s(k)).*kmpup)).^2....
-            .*(1/2-besselj(1,(1-s(k)).*kmdot.*x)./((1-s(k)).*kmdot.*x)));
+        et = @(x)((x.^2+q^2).^(-H-3/2)...
+            .*(besselj(1,(1-s(k)).*kmpup.*x/2)./((1-s(k)).*kmpup)).^2 ...
+            .*(1-besselj(0,kmdot.*x.*(1-s(k)))));
     
-        [i1G(k),error_i1G(k)]= quadgk(e1G,0,N,'RelTol',0,'AbsTol',1e-10,... 
+        [itl(k),error_itl(k)]= quadgk(et,0,N,'RelTol',0,'AbsTol',1e-10,... 
             'MaxIntervalCount',10461);%1e-13
     end
 end
