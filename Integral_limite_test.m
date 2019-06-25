@@ -31,4 +31,4 @@ m1 = [i1G(:,n), error_i1G(:,n)] /[i1l(:,n), error_i1l(:,n)]
 mT = [itG(:,n), error_itG(:,n)] / [itl(:,n), error_itl(:,n)]
 
 %%
-plot(s,m1,'*-')
+plot(s,m1,'*-',s,mT,'->')
