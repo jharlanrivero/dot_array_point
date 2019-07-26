@@ -1,4 +1,4 @@
-function [it, error_it] = integral_t(N, Cn, k, km, D, H, L, q, fn, kmpup, kmdot, s)
+function [it, error_it] = integral_t(N, km, H, q, fn, Rm, rm, s)
 %
 % [IT, ERROR_IT] = INTEGRAL_T(N, Q, FN, KMPUP, KMDOT, S)
 %
@@ -27,10 +27,9 @@ for k=1:n
     if s(k) == 1
         it(k)=0; error_it(k)= 0;
     else
-        et = @(x)(32.*gamma(2.*H+2).*sin(H.*pi).*Cn.*k.*(D^(-2)).*(km.^(-2.*H+3)).*L ...
-            .*x.^2.*exp(-1*x.^2)./(x.^2+q^2).^(H+3/2).*cos(-1*fn.*(1-s(k))^2.*x.^2).^2 ...
-            .*(besselj(1,(1-s(k)).*kmpup.*x/2)./((1-s(k)).*kmpup.*x)).^2 ...
-            .*(1-besselj(0,(1-s(k)).*kmdot.*x)).*(1-s(k))^2);
+        et = @(x)((32*1.50459.*km.^(1-2.*H)./Rm.^2.*sin(pi.*H)).*x.*exp(-1*x.^2)./(x.^2+q^2).^(H+3/2).*cos((1-s(k)).^2.*x.^2.*fn).^2 ...
+                .*(besselj(1,(1-s(k)).*Rm.*x)).^2 ...
+            .*(1-besselj(0,(1-s(k)).*rm.*x)));
     
         [it(k),error_it(k)]= quadgk(et,0,N,'RelTol',0,'AbsTol',1e-10,... 
             'MaxIntervalCount',10468);%1e-13

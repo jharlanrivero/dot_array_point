@@ -1,4 +1,4 @@
-function i12 = integral_one2(N, H, q, fn, kmpup, kmdot)
+function i12 = integral_one2(N, km, H, q, fn, Rm, rm, s)
 %
 % [I1, ERROR_I1] = INTEGRAL_ONE(N, Q, FN, KMPUP, KMDOT, S)
 %
@@ -19,12 +19,12 @@ function i12 = integral_one2(N, H, q, fn, kmpup, kmdot)
 %   S is the layer position where IT is evaluated.
 %
 %
-    fun1 = @(y)(eone(N, H, q, fn, kmpup, kmdot, y));
+    fun1 = @(y)(eone(N, km, H, q, fn, Rm, rm, s));
     i12= integral(fun1,0,1,'RelTol',0,'AbsTol',1e-10);%1e-13
 
-function I = eone(N, H, q, fn, kmpup, kmdot, y)
+function I = eone((N, km, H, q, fn, Rm, rm, y)
  
-         [I, ~] = integral_one(N, H, q, fn, kmpup, kmdot, y);   
+         [I, ~] = integral_one(N, km, H, q, fn, Rm, rm, y);   
          
          I = I';
 end
