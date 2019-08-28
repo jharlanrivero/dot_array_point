@@ -1,32 +1,50 @@
-function [it2, error_it2] = integral_t2(N, km, H, .045, .055, 3, rm(n), s)
+function it2 = integral_t2(N, km, H, q, fn, Rm, rm)
 %
-% [IT2, ERROR_IT2] = INTEGRAL_T2(N, Q, FN, KMPUP, KMDOT, S)
+% [I1, ERROR_I1] = INTEGRAL_ONE(N, Q, FN, KMPUP, KMDOT, S)
 %
-%   IT2 integration in s, for the cut-off N. See manuscript.
+%   I1 integrate in s, for the cut-off N. See manuscript.
 %  
-%   ERROR_IT2 is the error from the numerical approxiamtion to IT.
+%   ERROR_I1 is the error from the numerical approxiamtion to IT.
 %
 %   N is the cut off.
 %
 %   Q is the quotient between the inner and outer scales.
 %
-%   FN is the Fresnel number for the inner-scale frequency.
+%   FN = km^2 L / 2k is the Fresnel number for the inner-scale frequency.
 %
-%   KMPUP is the dimensionless entrance pupil
+%   RM = km D /2 is the dimensionless entrance pupil
 %
-%   'kmdot' is the dimensionless separation between dots, $\kappa_m d$, in the array.
+%   rm = km d is the dimensionless separation between dots in the array.
 %
-%   's' is the dimensionless layer position ($\xi/L$) where IT is evaluated.
+%   S is the layer position where IT is evaluated.
+%   48 = 32.*gamma(2H+2) para H=1/3 -> gamma(8/3)=1.5 aprox.
 %
+%   1.50459 is the gamma function evaluated with H=1/3
 %
-n = length(s);
-it2 = zeros(n,1);error_it2 = zeros(n,1);
+%i12 = zeros(n,1);%error_i12 = zeros(n,1);
 
+n = length(rm);
+it2 = zeros(n,1);
+    
+    
 
-for k=1:n 
-    fun1 = @(y)(y.*(integral_t(N, km, H, q, fn, Rm, rm, s)));
-    [it2(k),error_it2(k)]= quadgk(fun1,0,1,'RelTol',0,'AbsTol',1e-10,... 
-    'MaxIntervalCount',10468);%1e-13
-      
+for k=1:n
+      if rm(k)==1
+          it2(k)=0;
+%             i12(k)=0; error_i12(k)= 0;
+      else
+           fun1 = @(x)(itotal2(N, km, H, q, fn, Rm, rm(k), x));
+           it2(k) = integral(fun1,0,1)
+
+      end    
+end
+  
+function I = itotal2(N, km, H, q, fn, Rm, rm, s)
+ 
+         [I, ~] = integral_t(N, km, H, q, fn, Rm, rm, s);   
+         
+         I = I';
 end
 
+%plot(rm, it2,'>-')
+end
