@@ -46,5 +46,5 @@ function I = itotalG2(N, km, H, Rm, rm, s)
          I = I';
 end
 
-plot(rm, itG2,'+-')
+%plot(rm, itG2,'+-')
 end

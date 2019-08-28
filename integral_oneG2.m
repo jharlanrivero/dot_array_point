@@ -46,5 +46,5 @@ function I = ioneG2(N, km, H, Rm, rm, s)
          I = I';
 end
 
-%plot(rm, i1G2,'>-')
+plot(rm, i1G2,'>-')
 end
