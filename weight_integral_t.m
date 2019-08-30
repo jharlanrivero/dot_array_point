@@ -42,7 +42,7 @@ end
  function phi = Phin(glz,q,H,x)
         
         if glz==1
-            phi = 1./(x.^2+q^2).^(H+3/2);    
+            phi = 1./(x.^2+q.^2).^(H+3/2);    
         else
             phi = exp(-1*x.^2)./(x.^2+q^2).^(H+3/2);
         end
