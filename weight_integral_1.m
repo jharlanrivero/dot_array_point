@@ -31,7 +31,7 @@ for k=1:n
                 .*(1/2-besselj(1,(1-gammas(k)).*deltam.*x)./((1-gammas(k)).*deltam.*x)));
             
         [it(k),error_it(k)]= quadgk(eone,0,Inf,'RelTol',0,'AbsTol',errorb,... 
-            'MaxIntervalCount',10468);%1e-13
+            'MaxIntervalCount',16468);%1e-13
         
         %f1t=0;glz=0;
         %error_it2(k) = errorbound1T(f1t,glz,H,errorb);
