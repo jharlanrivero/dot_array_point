@@ -54,3 +54,16 @@ hold on;
 plot(s,it_gen1,'b-');
 
 plot(s,q1^(-2*H-1)*it_ok1,'g-');
+%% Parameters for the lab.
+Fmlab = pi*625E-9*.37/0.008^2;
+deltamlab=2*pi*.002/.008;
+qlab = .008/.13;
+Rmlab = 2*pi*.01/.008;
+kmlab = 2*pi/.008;
+H = 1/3;
+
+% Parameter for dome
+Fmdome = pi*625E-9*8/0.008^2;
+qdome = .008/2;
+Rmdome = 2*pi*.05/.008;
+deltamdome=2*pi*.02/.008;
