@@ -1,4 +1,4 @@
-function i12 = integral1T(f1t,glz,Fn, Rm, deltam, gammas, errorb, H, q,c2n)
+function i12 = integral1T(f1t,glz,Fn, Rm, deltam, emiter, errorb, H, q,c2n)
 %
 % [I1, ERROR_I1] = INTEGRAL_ONE(N, Q, FN, KMPUP, KMDOT, S)
 %
@@ -23,22 +23,22 @@ function i12 = integral1T(f1t,glz,Fn, Rm, deltam, gammas, errorb, H, q,c2n)
 %
 %i12 = zeros(n,1);%error_i12 = zeros(n,1);
 
-n = length(rm);
+n = length(deltam);
 i12 = zeros(n,1);
     
     
 
 for k=1:n
-      if deltam(k)==1
+      if deltam(k)==0
           i12(k)=0;
 %             i12(k)=0; error_i12(k)= 0;
       else
           
            dim = size(c2n);
            if dim(1) == 1
-               fun1 = @(x)(c2nprofile(x,c2n).*ione2(f1t,glz,Fn, Rm, deltam(k), gammas, errorb, H, q, x));
+               fun1 = @(x)(c2nprofile(x,c2n).*ione2(f1t,glz,Fn, Rm, deltam(k), gammaswave(emiter,x), errorb, H, q, x));
            else
-               fun1 = @(x)(c2nprofile(x,c2n(1,:),c2n(2,:)).*ione2(f1t,glz,Fn, Rm, deltam(k), gammas, errorb, H, q, x));
+               fun1 = @(x)(c2nprofile(x,c2n(1,:),c2n(2,:)).*ione2(f1t,glz,Fn, Rm, deltam(k), gammaswave(emiter,x), errorb, H, q, x));
            end
            
            i12(k) = integral(fun1,0,1,'RelTol',0,'AbsTol',errorb);

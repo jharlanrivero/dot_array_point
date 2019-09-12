@@ -54,3 +54,22 @@ hold on;
 plot(s,it_gen1,'b-');
 
 plot(s,q1^(-2*H-1)*it_ok1,'g-');
+%% Parameters for the lab
+c2nlab = 5E-8;
+qlab = .008/.13;
+Rmlab = 2*pi*.01/.008;
+deltamlab=2*pi*.002/.008;
+Fmlab = pi*625E-9*.37/0.008^2;
+
+
+% Parameters for the dome
+c2ndome = 1E-11;
+qdome = .008/2;
+deltamdome=2*pi*.02/.008;
+Fmdome = pi*625E-9*8/0.008^2;
+Rmdome = 2*pi*.05/.008;
+
+%%
+varparglz = variance_constant(H,8,Rmdome,2*pi/.008,qdome).*...
+    integral1T(1,1,qdome^2*Fmdome, qdome*Rmdome, qdome*deltamdome, 'divergent', errorb, H, qdome,c2ndome);
+%
