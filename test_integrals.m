@@ -62,14 +62,30 @@ deltamlab=2*pi*.002/.008;
 Fmlab = pi*625E-9*.37/0.008^2;
 
 
-% Parameters for the dome
+% Parameters for the dome (supposing measuring with Szymon device
+% 10 LEDS spread 5 cm each gives a deltamax 
+deltamdomemax = 2*pi*.5/.008;
+deltamdome=2*pi*.05/.008;
+% is the minimum separation
+qdome = .008/2; qdomemin = .008/8;
+%
+%
+Rmdome = 2*pi*.145/.016;
+% supposing this turbulence.
 c2ndome = 1E-11;
-qdome = .008/2;
-deltamdome=2*pi*.02/.008;
+% and Fresnel number.
 Fmdome = pi*625E-9*8/0.008^2;
-Rmdome = 2*pi*.05/.008;
+
 
 %%
-varparglz = variance_constant(H,8,Rmdome,2*pi/.008,qdome).*...
-    integral1T(1,1,qdome^2*Fmdome, qdome*Rmdome, qdome*deltamdome, 'divergent', errorb, H, qdome,c2ndome);
-%
+deltam = 1:2:500;
+%%
+var1parglz = variance_constant(H,8,Rmdome,2*pi/.008,qdome).*...
+    integral1T(1,1,qdome^2*Fmdome, qdome*Rmdome, qdome*deltam(1:250), 'divergent', errorb, H, qdome,c2ndome);
+var2parglz = variance_constant(H,8,Rmdome,2*pi/.008,qdome).*...
+    integral1T(2,1,qdome^2*Fmdome, qdome*Rmdome, qdome*deltam(1:250), 'divergent', errorb, H, qdome,c2ndome);
+%%
+var1parlab = variance_constant(H,.37,Rmlab,2*pi/.008,qlab).*...
+    integral1T(1,2,Fmlab, Rmlab, deltam(1:100)/4, 'divergent', errorb, H, qlab,c2nlab);
+var2parlab = variance_constant(H,.37,Rmlab,2*pi/.008,qlab).*...
+    integral1T(2,2,Fmlab, Rmlab, deltam(1:100)/4, 'divergent', errorb, H, qlab,c2nlab);
