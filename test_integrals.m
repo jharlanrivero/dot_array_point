@@ -127,3 +127,12 @@ plot(deltam,var1parint,'b-',deltam,var1parglz,'k-',deltam,(var2parint-var1parint
 figure;
 plot(deltam,100*(var1parglz-var1parint)./var1parglz,'k-',deltam,100*((var2parglz-var1parglz)-(var2parint-var1parint))./(var2parglz-var1parglz),'c-');
     
+
+%% Resolution
+Rm =16;
+L=8;
+deltam0=16; pixel=5.5E-3;focal=300;km0=2*pi/.008;
+
+min_separation = 1.22*625E-9/(2*Rm/km0),
+target_separation = deltam0/L/km0,
+sys_separation = pixel/focal,
