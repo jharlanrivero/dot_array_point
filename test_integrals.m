@@ -54,6 +54,7 @@ hold on;
 plot(s,it_gen1,'b-');
 
 plot(s,q1^(-2*H-1)*it_ok1,'g-');
+<<<<<<< HEAD
 %% Parameters for the lab
 c2nlab = 5E-8;
 qlab = .008/.13;
@@ -136,3 +137,18 @@ deltam0=16; pixel=5.5E-3;focal=300;km0=2*pi/.008;
 min_separation = 1.22*625E-9/(2*Rm/km0),
 target_separation = deltam0/L/km0,
 sys_separation = pixel/focal,
+=======
+%% Parameters for the lab.
+Fmlab = pi*625E-9*.37/0.008^2;
+deltamlab=2*pi*.002/.008;
+qlab = .008/.13;
+Rmlab = 2*pi*.01/.008;
+kmlab = 2*pi/.008;
+H = 1/3;
+
+% Parameter for dome
+Fmdome = pi*625E-9*8/0.008^2;
+qdome = .008/2;
+Rmdome = 2*pi*.05/.008;
+deltamdome=2*pi*.02/.008;
+>>>>>>> master
