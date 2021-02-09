@@ -54,7 +54,7 @@ hold on;
 plot(s,it_gen1,'b-');
 
 plot(s,q1^(-2*H-1)*it_ok1,'g-');
-<<<<<<< HEAD
+%<<<<<<< HEAD
 %% Parameters for the lab
 c2nlab = 5E-8;
 qlab = .008/.13;
@@ -68,17 +68,20 @@ Fmlab = pi*625E-9*.37/0.008^2;
 %deltamdomemax = 2*pi*.5/.008;
 %deltamdome=2*pi*.05/.008;
 % is the minimum separation
-qdome = .005; qdomemin = .008/8;
+qdome = .002; qdomemin = .008/8;
 %
-Rmdome = 45.5;
+%Rmdome = 27;
+Rmdome = 7;
 % supposing this turbulence.
 c2ndome = 1E-11;
 % and Fresnel number.
-Fmdome = 0.46;
+Fmdome = 0.46; 
+H=0.1;
+%H=1/3;
 %%
-deltam = deltamlab:.5:(deltamlab*10);
-L = 10;
-km = 0.01;
+deltam = 7.5:2:236;
+L = 15;
+km = 2*pi/0.008;
 %% 
 %figure;
 var1parglz = variance_constant(H,L,Rmdome,km,qdome).*...
@@ -91,8 +94,14 @@ var1parint = variance_constant(H,L,Rmdome,km).*...
 var2parint = variance_constant(H,L,Rmdome,km).*...
     integral1T(2,2,Fmdome, Rmdome, deltam, 'divergent', errorb, H, qdome,c2ndome);
 %
-figure;
-plot(deltam,100*(var1parglz-var1parint)./var1parglz,'k-',deltam,100*((var2parglz-var1parglz)-(var2parint-var1parint))./(var2parglz-var1parglz),'c-');
+%figure;
+hold on
+plot(deltam,var1parint,'b-',deltam,var1parglz,'k-',deltam,(var2parint-var1parint),'r-',deltam,(var2parglz-var1parglz),'g-');
+
+%%plot(deltam,100*(var1parglz-var1parint)./var1parglz,'k-',deltam,100*((var2parglz-var1parglz)-(var2parint-var1parint))./(var2parglz-var1parglz),'c-');
+
+%figure;
+%plot(deltam,var1parint,'b-',deltam,var1parglz,'k-',deltam,(var2parint-var1parint),'r-',deltam,(var2parglz-var1parglz),'g-');
 
 %% Parameters for the dome (supposing measuring with Szymon device
 % 10 LEDS spread 5 cm each gives a deltamax 
@@ -108,7 +117,7 @@ c2ndome = 1E-11;
 Fmdome = 0.46;
 %%
 deltam = 15.7:20:196;
-L = 10;
+L = 15;
 km = 0.008;
 %% 
 %figure;
@@ -134,10 +143,10 @@ Rm =16;
 L=8;
 deltam0=16; pixel=5.5E-3;focal=300;km0=2*pi/.008;
 
-min_separation = 1.22*625E-9/(2*Rm/km0),
-target_separation = deltam0/L/km0,
-sys_separation = pixel/focal,
-=======
+min_separation = 1.22*625E-9/(2*Rm/km0);
+target_separation = deltam0/L/km0;
+sys_separation = pixel/focal;
+%=======
 %% Parameters for the lab.
 Fmlab = pi*625E-9*.37/0.008^2;
 deltamlab=2*pi*.002/.008;
@@ -151,4 +160,4 @@ Fmdome = pi*625E-9*8/0.008^2;
 qdome = .008/2;
 Rmdome = 2*pi*.05/.008;
 deltamdome=2*pi*.02/.008;
->>>>>>> master
+%>>>>>>> master
